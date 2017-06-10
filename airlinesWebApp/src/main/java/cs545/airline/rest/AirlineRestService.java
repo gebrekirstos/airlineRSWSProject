@@ -9,7 +9,10 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
@@ -28,54 +31,52 @@ public class AirlineRestService {
 		return "Welcome to " + name + " Airline!";
 	}
 	
+	@Path("create")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void create(Airline airport) {
+		airlineService.create(airport);
+	}
+	
+	@Path("delete")
+	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void delete(Airline airport) {
+		airlineService.delete(airport);
+	}
+	
+	@Path("update")
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Airline update(Airline airport) {
+		return airlineService.update(airport);
+	}
+	
+	/*@Path("find")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public Airline find(@QueryParam("find") Airline find) {
+		return airlineService.find(find);
+	}*/
+	
 	@Path("name")
 	@GET
-	public String getAirlineByName(){
-		String tempAirline="Den";
-		Airline airline = airlineService.findByName("oneworld");
-		if(airline !=null){
-			tempAirline = "This Airline name ie: " + airline.getName();
-		}
-		return tempAirline;
+	@Produces(MediaType.APPLICATION_JSON)
+	public Airline findByName(@QueryParam("name") String name) {
+		return airlineService.findByName(name);
 	}
 	
-	@Path("findairline")
+	/*@Path("flight")
 	@GET
-	public Airline getAirline(Airline airline){
-		return airlineService.find(airline);
-	}
-	
-	@Path("findairlinebyflight")
-	@GET
-	public List<Airline> getAllAirlineByFlight(Flight flight){
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Airline> findByFlight(@QueryParam("flight") Flight flight) {
 		return airlineService.findByFlight(flight);
-	}
+	}*/
 	
-	@Path("listofairlines")
+	@Path("listall")
 	@GET
-	public List<Airline> getAllAirlines(){
+	public List<Airline> findAll() {
 		return airlineService.findAll();
 	}
-	
-	@Path("createairline")
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	public void createAirline(Airline airline){
-		airlineService.create(airline);
-	}
-	
-	@Path("updateairline")
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Airline updateAirline(Airline airline){
-		return airlineService.update(airline);
-	}
-	
-	@Path("deleteairline")
-	@DELETE
-	public void deleteAirline(Airline airline){
-		airlineService.delete(airline);
-	}
-	
 	
 }

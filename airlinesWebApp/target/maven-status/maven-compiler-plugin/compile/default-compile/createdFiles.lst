@@ -1,9 +1,7 @@
 cs545\airline\rest\AirlineRestService.class
 edu\mum\gf\workaround\JpaUtil.class
 cs545\airline\model\Flight.class
-cs545\airline\rest\FlightRestService.class
 cs545\airline\dao\AirlineDao.class
-cs545\airline\service\FlightService.class
 cs545\airline\model\Airport.class
 cs545\airline\model\Airplane.class
 cs545\airline\service\AirplaneService.class
