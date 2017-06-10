@@ -52,12 +52,13 @@ public class AirlineRestService {
 		return airlineService.update(airport);
 	}
 	
-	/*@Path("find")
-	@POST
+	//   airline/find?find="value"
+	@Path("find")
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Airline find(@QueryParam("find") Airline find) {
 		return airlineService.find(find);
-	}*/
+	}
 	
 	@Path("name")
 	@GET
