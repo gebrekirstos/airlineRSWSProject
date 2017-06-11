@@ -24,21 +24,14 @@ import cs545.airline.service.AirlineService;
 @Named
 @ApplicationScoped
 @Path("airline")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class AirlineRestService {
+	
 	@Inject
 	private AirlineService airlineService;
 	private List<Airline> airlines;
-	private boolean editable;
 	
-	
-	public boolean isEditable() {
-		return editable;
-	}
-
-	public void setEditable(boolean editable) {
-		this.editable = editable;
-	}
-
 	public List<Airline> getAirlines() {
 		return airlines;
 	}
@@ -48,43 +41,40 @@ public class AirlineRestService {
 	}
 
 	@GET
-	public String helloAirline(@DefaultValue("Denver") @QueryParam("name") String name){
-		return "Welcome to " + name + " Airline!";
+	public String findAll() {
+		airlines =  airlineService.findAll();
+		return "airline";
 	}
 	
-	@Path("create")
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
 	public void create(Airline airport) {
 		airlineService.create(airport);
 	}
 	
-	@Path("delete")
-	@DELETE
-	@Consumes(MediaType.APPLICATION_JSON)
-	public void delete(Airline airport) {
-		airlineService.delete(airport);
+	@PUT
+	@Path("/{id}")
+	public Airline update(@PathParam("id") long id, Airline airline) {
+		airline.setId(id);
+		return airlineService.update(airline);
 	}
 	
-	@Path("update")
-	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Airline update(Airline airport) {
-		return airlineService.update(airport);
+	@DELETE
+	@Path("/{id}")
+	public void delete(@PathParam("id") long id, Airline airline) {
+		airline.setId(id);
+		airlineService.delete(airline);
 	}
 	
 	//   airline/find?find="value"
-	@Path("find")
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@Path("find")
 	public Airline find(@QueryParam("find") Airline find) {
 		return airlineService.find(find);
 	}
 	
-	@Path("name")
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Airline findByName(@QueryParam("name") String name) {
+	@Path("/{name}")
+	public Airline findByName(@PathParam("name") String name) {
 		return airlineService.findByName(name);
 	}
 	
@@ -94,12 +84,5 @@ public class AirlineRestService {
 	public List<Airline> findByFlight(@QueryParam("flight") Flight flight) {
 		return airlineService.findByFlight(flight);
 	}*/
-	
-	@Path("listall")
-	@GET
-	public String findAll() {
-		airlines =  airlineService.findAll();
-		return "airline";
-	}
 	
 }

@@ -1,5 +1,6 @@
 package cs545.airline.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,11 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(uniqueConstraints=@UniqueConstraint(name="Airline_Name",columnNames={"name"}))
-public class Airline {
+public class Airline implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	private long id;
@@ -23,6 +26,18 @@ public class Airline {
 	@OneToMany(mappedBy = "airline", cascade= CascadeType.ALL)
 	@OrderBy("departureDate, departureTime")
 	private List<Flight> flights = new ArrayList<>();
+	
+	@Transient
+	private boolean editable;
+	
+
+	public boolean isEditable() {
+		return editable;
+	}
+
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
 
 	/* Constructors */
 	public Airline() {
