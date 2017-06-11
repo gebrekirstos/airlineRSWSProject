@@ -2,6 +2,7 @@ package cs545.airline.rest;
 
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.Consumes;
@@ -21,11 +22,31 @@ import cs545.airline.model.Flight;
 import cs545.airline.service.AirlineService;
 
 @Named
+@ApplicationScoped
 @Path("airline")
 public class AirlineRestService {
 	@Inject
 	private AirlineService airlineService;
+	private List<Airline> airlines;
+	private boolean editable;
 	
+	
+	public boolean isEditable() {
+		return editable;
+	}
+
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
+
+	public List<Airline> getAirlines() {
+		return airlines;
+	}
+
+	public void setAirlines(List<Airline> airlines) {
+		this.airlines = airlines;
+	}
+
 	@GET
 	public String helloAirline(@DefaultValue("Denver") @QueryParam("name") String name){
 		return "Welcome to " + name + " Airline!";
@@ -76,8 +97,9 @@ public class AirlineRestService {
 	
 	@Path("listall")
 	@GET
-	public List<Airline> findAll() {
-		return airlineService.findAll();
+	public String findAll() {
+		airlines =  airlineService.findAll();
+		return "airline";
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.Consumes;
@@ -26,10 +27,13 @@ import cs545.airline.model.Flight;
 import cs545.airline.service.FlightService;
 
 @Named
+@ApplicationScoped
 @Path("flight")
 public class FlightRestService {
 	@Inject
 	private FlightService flightService;
+	
+	private List<Flight> flights;
 	
 	
 	/*@Path("create")
@@ -46,11 +50,27 @@ public class FlightRestService {
 		flightService.delete(flight);
 	}*/
 	
+	public List<Flight> getFlights() {
+		return flights;
+	}
+
+	public void setFlights(List<Flight> flights) {
+		this.flights = flights;
+	}
+
 	@Path("update")
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Flight update(Flight flight) {
 		return flightService.update(flight);
+	}
+	
+	@Path("listall")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public String findAll() {		
+		flights = flightService.findAll();
+		return "flight";
 	}
 
 }

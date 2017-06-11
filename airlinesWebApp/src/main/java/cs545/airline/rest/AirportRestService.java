@@ -2,6 +2,7 @@ package cs545.airline.rest;
 
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.Consumes;
@@ -18,11 +19,20 @@ import cs545.airline.model.Airport;
 import cs545.airline.service.AirportService;
 
 @Named
+@ApplicationScoped
 @Path("airport")
 public class AirportRestService {
 	@Inject
 	private AirportService airportService;
 	
+	private List<Airport> airports;
+	
+	public List<Airport> getAirports() {
+		return airports;
+	}
+	public void setAirports(List<Airport> airports) {
+		this.airports = airports;
+	}
 	@Path("create")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -90,7 +100,8 @@ public class AirportRestService {
 	@Path("listall")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Airport> findAll() {
-		return airportService.findAll();
+	public String findAll() {
+		airports= airportService.findAll();
+		return "airport";
 	}
 }

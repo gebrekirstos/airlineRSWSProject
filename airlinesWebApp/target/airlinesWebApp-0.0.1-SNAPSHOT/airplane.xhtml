@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+	<title>Airplane</title>
+	<h:outputStylesheet library="css" name="table-style.css"  />
+</h:head>
+<h:body>
+	<h1>Welcome to Airplane!!</h1>
+	<h:dataTable value="#{airplaneRestService.airplanes}" var="airplane" styleClass="order-table"
+    		headerClass="order-table-header"
+    		rowClasses="order-table-odd-row,order-table-even-row">
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="ID"/>
+            </f:facet>
+            <h:outputText value="#{airplane.id}"/>           
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="SerialNO"/>
+            </f:facet>
+            <h:outputText value="#{airplane.serialnr}"/>           
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="Model"/>
+            </f:facet>
+            <h:outputText value="#{airplane.model}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="Capacity"/>
+            </f:facet>
+            <h:outputText value="#{airplane.capacity}"/>
+        </h:column>
+        <h:column>
+					<f:facet name="header">Action</f:facet>
+					<h:panelGrid columns="2">
+						<h:commandButton value="Edit" />
+						<h:commandButton value="Delete" />
+
+					</h:panelGrid>
+				</h:column>
+    </h:dataTable>
+    <br />
+    <!-- <h:link outcome="addairplane">Add Airplanes </h:link> -->
+    <h:form>
+		<h:panelGrid columns="3">
+			<h:commandButton value="Add Airplanes" action="addairplane.xhtml" />
+			<br />
+			<h:button value="Exit" outcome="home.xhtml" immediate="true" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>
