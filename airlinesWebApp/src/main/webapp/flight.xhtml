@@ -11,7 +11,27 @@
 <h:body>
 	<center>
 	<h1>Welcome to Flight!!</h1>
-	<h:dataTable value="#{flightRestService.flights}" var="flight"
+	<h:form>
+			<h:panelGrid columns="9">
+
+
+				<h:outputLabel> Airline:</h:outputLabel>
+				<h:inputText value="#{flightRestService.airlineQ}" />
+				<h:commandButton value="Search"
+					action="#{flightRestService.findByAirline}" />
+
+				<h:outputLabel> Departure:</h:outputLabel>
+				<h:inputText value="#{flightRestService.origin}" />
+				<h:commandButton value="Search"
+					action="#{flightRestService.findByOrigin}" />
+
+				<h:outputLabel> Destination:</h:outputLabel>
+				<h:inputText value="#{flightRestService.destination}" />
+				<h:commandButton value="Search"
+					action="#{flightRestService.findByDestination}" />
+			</h:panelGrid>
+		</h:form>
+	<h:dataTable value="#{flightRestService.flightList}" var="flight"
 		styleClass="order-table"
     		headerClass="order-table-header"
     		rowClasses="order-table-odd-row,order-table-even-row">
