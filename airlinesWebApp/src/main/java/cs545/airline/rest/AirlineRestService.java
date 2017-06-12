@@ -1,5 +1,6 @@
 package cs545.airline.rest;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -26,7 +27,16 @@ import cs545.airline.service.AirlineService;
 @Path("airline")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class AirlineRestService {
+public class AirlineRestService implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private String name;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	@Inject
 	private AirlineService airlineService;
@@ -46,30 +56,70 @@ public class AirlineRestService {
 		return "airline";
 	}
 	
-	@POST
+	/*@POST
 	public void create(Airline airport) {
 		airlineService.create(airport);
+	}*/
+	
+	@POST
+	public String  createAirline() {
+		Airline airline = new Airline();
+		airline.setName(this.name);
+		airlineService.create(airline);
+		airlines = airlineService.findAll();
+		return "airlines";
 	}
 	
 	@PUT
-	@Path("/{id}")
-	public Airline update(@PathParam("id") long id, Airline airline) {
-		airline.setId(id);
+	public Airline update(Airline airline) {
 		return airlineService.update(airline);
 	}
 	
+	/*@PUT
+	@Path("update")
+	public void update(Airline airline) {
+		airlineService.update(airline);
+	}*/
+	
+	/*@GET
+	@Path("namedel")
+	public String delete(@QueryParam("name") String name, Airline airline) {
+		airline = findByName(name);
+		airlineService.delete(airline);
+		return "succesful";
+	}*/
+	
+	@Path("delete")	
+	@Consumes(MediaType.APPLICATION_JSON)
 	@DELETE
+	public String  deleteAirline(String name) {
+		
+		try{
+		Airline airline = airlineService.findByName(name);		
+		airlineService.delete(airline);
+		airlines = airlineService.findAll();		
+	   }
+		catch(Exception e){
+			
+				e.printStackTrace();
+				}
+		
+		return "airlines";
+	}
+	
+	/*@DELETE
 	@Path("/{id}")
 	public void delete(@PathParam("id") long id, Airline airline) {
 		airline.setId(id);
 		airlineService.delete(airline);
-	}
+	}*/
 	
 	//   airline/find?find="value"
 	@GET
-	@Path("find")
-	public Airline find(@QueryParam("find") Airline find) {
-		return airlineService.find(find);
+	@Path("find/{name}")
+	public Airline find(@PathParam("name") String name) {
+		Airline airline= airlineService.findByName(name);
+		return airlineService.find(airline);
 	}
 	
 	@GET

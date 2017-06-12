@@ -1,5 +1,6 @@
 package cs545.airline.rest;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -29,11 +30,16 @@ import cs545.airline.service.FlightService;
 @Named
 @ApplicationScoped
 @Path("flight")
-public class FlightRestService {
+public class FlightRestService implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Inject
 	private FlightService flightService;
 	
 	private List<Flight> flights;
+	
+	private String airlineQ;
+	private String origin;
+	private String destination;
 	
 	
 	/*@Path("create")
@@ -50,6 +56,30 @@ public class FlightRestService {
 		flightService.delete(flight);
 	}*/
 	
+	public String getAirlineQ() {
+		return airlineQ;
+	}
+
+	public void setAirlineQ(String airlineQ) {
+		this.airlineQ = airlineQ;
+	}
+
+	public String getOrigin() {
+		return origin;
+	}
+
+	public void setOrigin(String origin) {
+		this.origin = origin;
+	}
+
+	public String getDestination() {
+		return destination;
+	}
+
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
+
 	public List<Flight> getFlights() {
 		return flights;
 	}

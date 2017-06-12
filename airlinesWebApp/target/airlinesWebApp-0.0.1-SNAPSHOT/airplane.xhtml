@@ -9,7 +9,8 @@
 	<h:outputStylesheet library="css" name="table-style.css"  />
 </h:head>
 <h:body>
-	<h1>Welcome to Airplane!!</h1>
+	<center>
+	<h1>Airplanes Lists!!</h1>
 	<h:dataTable value="#{airplaneRestService.airplanes}" var="airplane" styleClass="order-table"
     		headerClass="order-table-header"
     		rowClasses="order-table-odd-row,order-table-even-row">
@@ -55,5 +56,6 @@
 			<h:button value="Exit" outcome="home.xhtml" immediate="true" />
 		</h:panelGrid>
 	</h:form>
+	</center>
 </h:body>
 </html>
