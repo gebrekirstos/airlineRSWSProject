@@ -67,7 +67,7 @@ public class AirlineRestService implements Serializable{
 		airline.setName(this.name);
 		airlineService.create(airline);
 		airlines = airlineService.findAll();
-		return "airlines";
+		return "airline";
 	}
 	
 	@PUT
@@ -90,7 +90,6 @@ public class AirlineRestService implements Serializable{
 	}*/
 	
 	@Path("delete")	
-	@Consumes(MediaType.APPLICATION_JSON)
 	@DELETE
 	public String  deleteAirline(String name) {
 		
@@ -104,7 +103,7 @@ public class AirlineRestService implements Serializable{
 				e.printStackTrace();
 				}
 		
-		return "airlines";
+		return "airline";
 	}
 	
 	/*@DELETE

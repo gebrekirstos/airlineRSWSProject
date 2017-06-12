@@ -38,7 +38,8 @@
 						<h:commandButton value="#{airline.editable?'Save':'Edit'}"
 							action="#{allServiceHelper.changeEditStatus(airline)}" />
 
-						<h:commandButton value="Delete" />
+						<h:commandButton value="Delete" action="#{airlineRestService.deleteAirline(airline.name)}"
+						immediate="true" />
 
 					</h:panelGrid>
 				</h:column>
