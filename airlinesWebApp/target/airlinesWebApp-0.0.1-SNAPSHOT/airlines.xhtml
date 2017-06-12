@@ -1,0 +1,57 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+	<title>Airline</title>
+	<h:outputStylesheet library="css" name="table-style.css" />
+</h:head>
+<h:body>
+	<center>
+		<h3>Airline</h3>
+		<h:dataTable var="airline" value="#{restAirlineService.airlines}"
+			styleClass="order-table, column-table"
+			headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-even-row">
+			<f:facet name="header">
+				<h:outputText value="Airline List" />
+			</f:facet>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Id" />
+				</f:facet>
+				<h:outputText value="#{airline.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:inputText value="FlightNumber" rendered="#{airline.editable}" />
+					<h:outputText value="FlightNumber"
+						rendered="#{not airline.editable}" />
+				</f:facet>
+				<h:inputText value="#{airline.name}" rendered="#{airline.editable}" />
+				<h:outputText value="#{airline.name}"
+					rendered="#{not airline.editable}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Action" />
+				</f:facet>
+				<h:panelGrid columns="2">
+					<h:commandButton value="#{airline.editable?'Save':'Edit'}"
+						action="#{serviceHelper.changeEditStatus(airline)}" />
+					<h:commandButton value="DELETE"
+						action="#{restAirlineService.deleteAirline(airline.name)}"
+						immediate="true" />
+				</h:panelGrid>
+			</h:column>
+		</h:dataTable>
+		<br />
+		<h:button value="Create" outcome="create" />
+		<h:button value="HomePage" outcome="welcome" />
+		</h:form>
+	</center>
+</h:body>
+</html>

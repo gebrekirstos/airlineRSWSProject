@@ -1,0 +1,11 @@
+Airline Project
+
+Short Summary Report.
+
+I successfully exposes all the services to the REST Services as you given us in the instruction and I create all APIs and I tested them using POSTMAN tool. I design and implement all the UI views that fetches and display flight and airline information and I finish all the CRUD operations about the airline. I consider also the composition, navigation and flows. now I am working with the filter using ajax since still I didn't finish it.
+
+For web application development especially using framework I was totaly new and I have no experience before EA coourse but from this airline project I learned JSF framework, Hibernate persistence frameworks, databases, services, JSON objects glassfish web server and I get web development experiences and debugging and solving different bugs . I know and get good experiences about the three layer architecture. I get good knowledage of dependency injection.
+
+I was facing a problem at the early case with the create operation but you solve it and latter with the update operations and the problem was at the entityManager persistence context the data was detached before saving to the database and also the scarcity of time since as I mention above I don't have previous experience.
+
+Generally for me, It was very interesting and challenging project.
