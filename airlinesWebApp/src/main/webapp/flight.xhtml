@@ -5,125 +5,110 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:head>
-	<title>Flight</title>
-	<h:outputStylesheet library="css" name="table-style.css"  />
+	<title>Airline</title>
+	<h:outputStylesheet library="css" name="table-style.css" />
 </h:head>
 <h:body>
 	<center>
-	<h1>Welcome to Flight!!</h1>
-	<h:form>
+		<h1>Welcome to Flight </h1>
+		<h:form>
 			<h:panelGrid columns="9">
 
 
-				<h:outputLabel> Airline:</h:outputLabel>
+				<h:outputLabel> AirlineName:</h:outputLabel>
 				<h:inputText value="#{flightRestService.airlineQ}" />
-				<h:commandButton value="Search"
-					action="#{flightRestService.findByAirline}" />
+				<h:commandButton value="Search">
+					<f:ajax listener="#{flightRestService.findByAirline()}" execute="@form"
+				render="list" />
+				</h:commandButton>
+					
 
 				<h:outputLabel> Departure:</h:outputLabel>
 				<h:inputText value="#{flightRestService.origin}" />
-				<h:commandButton value="Search"
-					action="#{flightRestService.findByOrigin}" />
+				<h:commandButton value="Search" >
+					<f:ajax listener="#{flightRestService.findByOrigin}" execute="@form"
+				render="list" /></h:commandButton>
 
-				<h:outputLabel> Destination:</h:outputLabel>
+				<h:outputLabel>Destination:</h:outputLabel>
 				<h:inputText value="#{flightRestService.destination}" />
-				<h:commandButton value="Search"
-					action="#{flightRestService.findByDestination}" />
+				<h:commandButton value="Search" >
+					<f:ajax listener="#{flightRestService.findByDestination}" execute="@form"
+				render="list" /></h:commandButton>
 			</h:panelGrid>
 		</h:form>
-	<h:dataTable value="#{flightRestService.flightList}" var="flight"
-		styleClass="order-table"
-    		headerClass="order-table-header"
-    		rowClasses="order-table-odd-row,order-table-even-row">
-		
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="ID" />
-			</f:facet>
-			<h:outputText value="#{flight.id}" />
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="Number" />
-			</f:facet>
-			<h:outputText value="#{flight.flightnr}" />
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="DepartureDate" />
-			</f:facet>
-			<h:outputText value="#{flight.departureDate}" />
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="DepartureTime" />
-			</f:facet>
-			<h:outputText value="#{flight.departureTime}" />
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="ArrivalDate" />
-			</f:facet>
-			<h:outputText value="#{flight.arrivalDate}" />
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="ArrivalTime" />
-			</f:facet>
-			<h:outputText value="#{flight.arrivalTime}" />
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="AirlineNo" />
-			</f:facet>
-			<h:outputText value="#{flight.airline.id}" />
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="Origin" />
-			</f:facet>
-			<h:outputText value="#{flight.origin.id}" />
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="Destination" />
-			</f:facet>
-			<h:outputText value="#{flight.destination.id}" />
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">
-				<h:outputText value="Airplane" />
-			</f:facet>
-			<h:outputText value="#{flight.airplane.id}" />
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">Action</f:facet>
-			<h:panelGrid columns="2">
-				<h:commandButton value="Edit" />
-				<h:commandButton value="Delete" />
 
+		<h:dataTable id = "list" var="flight" value="#{flightRestService.flightList}"
+			styleClass="order-table"
+			headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-even-row">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Id" />
+				</f:facet>
+				<h:outputText value="#{flight.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="FlightNumber" />
+				</f:facet>
+				<h:outputText value="#{flight.flightnr}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Origin" />
+				</f:facet>
+				<h:outputText value="#{flight.origin.name}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Destination" />
+				</f:facet>
+				<h:outputText value="#{flight.destination.name}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="DepartureDate" />
+				</f:facet>
+				<h:outputText value="#{flight.departureDate}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Departuretime" />
+				</f:facet>
+				<h:outputText value="#{flight.departureTime}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Airplane" />
+				</f:facet>
+				<h:outputText value="#{flight.airplane.model}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Airline" />
+				</f:facet>
+				<h:outputText value="#{flight.airline.name}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Action</f:facet>
+				<h:panelGrid columns="2">
+					<h:commandButton value="Edit" />
+					<h:commandButton value="Delete" />
+
+				</h:panelGrid>
+			</h:column>
+		</h:dataTable>
+
+		<br />
+		<!-- <h:link outcome="addflight">Add Flight </h:link> -->
+		<h:form>
+			<h:panelGrid columns="3">
+				<h:commandButton value="Add Flight" action="addflight.xhtml" />
+				<br />
+				<h:button value="Exit" outcome="home.xhtml" immediate="true" />
 			</h:panelGrid>
-		</h:column>
-	</h:dataTable>
-	<br />
-	<!-- <h:link outcome="addflight">Add Flight </h:link> -->
-	<h:form>
-		<h:panelGrid columns="3">
-			<h:commandButton value="Add Flight" action="addflight.xhtml" />
-			<br />
-			<h:button value="Exit" outcome="home.xhtml" immediate="true" />
-		</h:panelGrid>
-	</h:form>
+		</h:form>
+
 	</center>
 </h:body>
 </html>

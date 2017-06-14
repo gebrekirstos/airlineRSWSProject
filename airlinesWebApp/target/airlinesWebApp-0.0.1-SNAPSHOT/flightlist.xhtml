@@ -89,7 +89,15 @@
 			</h:column>
 		</h:dataTable>
 
-		<h:button value="HomePage" outcome="welcome" />
+		<br />
+		<!-- <h:link outcome="addflight">Add Flight </h:link> -->
+		<h:form>
+			<h:panelGrid columns="3">
+				<h:commandButton value="Add Flight" action="addflight.xhtml" />
+				<br />
+				<h:button value="Exit" outcome="home.xhtml" immediate="true" />
+			</h:panelGrid>
+		</h:form>
 
 	</center>
 </h:body>

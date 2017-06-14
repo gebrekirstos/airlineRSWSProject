@@ -106,12 +106,11 @@ public class AirlineRestService implements Serializable{
 		return "airline";
 	}
 	
-	/*@DELETE
-	@Path("/{id}")
-	public void delete(@PathParam("id") long id, Airline airline) {
-		airline.setId(id);
+	@DELETE
+	public void delete(String name) {
+		Airline airline = airlineService.findByName(name);
 		airlineService.delete(airline);
-	}*/
+	}
 	
 	//   airline/find?find="value"
 	@GET

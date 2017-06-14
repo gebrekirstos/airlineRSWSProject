@@ -26,11 +26,18 @@ import cs545.airline.service.FlightService;
 @Named
 @ApplicationScoped 
 public class FlightRestService implements Serializable {
-	
+	private static final long serialVersionUID = 1L;
 	private String airlineQ;
 	private String origin;
 	private String destination;
+	@Inject
+	private FlightService flightService;
+	@Inject
+	private AirlineService airlineServic;	
+	@Inject
+	private AirportService airportService;
 	
+	private List<Flight> flightList = new ArrayList<Flight>();
 	public String getOrigin() {
 		return origin;
 	}
@@ -56,18 +63,6 @@ public class FlightRestService implements Serializable {
 	}
 
 
-
-	private static final long serialVersionUID = 1L;
-	@Inject
-	private FlightService flightService;
-	@Inject
-	private AirlineService airlineServic;	
-	@Inject
-	private AirportService airportService;
-	
-	private List<Flight> flightList = new ArrayList<Flight>();
-	
-
 	public List<Flight> getFlightList() {
 		return flightList;
 	}
@@ -76,70 +71,66 @@ public class FlightRestService implements Serializable {
 		this.flightList = flightList;
 	}
 	 
+	@POST
 	@Path("update")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@POST
 	public Flight update(Flight flight) {
 		return flightService.update(flight);
 	}
 	
+	@GET
 	@Path("find")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@GET
 	public Flight find(Flight flight) {
 		return flightService.find(flight);
 	}
 	
+	@GET
 	@Path("findBynumber")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@GET
 	public String findByNumber() {
-		
      flightList =  flightService.findByNumber(airlineQ);	
-		
 		return  "flightList";
 	}
     
+	@GET
 	@Path("findByAirline")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@GET
 	public String findByAirline() {
 		
 		Airline airline = airlineServic.findByName(airlineQ);
 		flightList =  flightService.findByAirline(airline);	
-		
 		return  "flightList";
 	}
     
+	@GET
 	@Path("findByOrigin")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@GET
 	public String findByOrigin() {
-		
 		Airport airport = airportService.findByCode(origin);
 		flightList = flightService.findByOrigin(airport);
 		return  "flightList";
 	}
 	
+	@GET
 	@Path("findByDestination")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@GET
 	public String findByDestination() {
 		Airport airport = airportService.findByCode(destination);
 		flightList = flightService.findByDestination(airport);
 		return  "flightList";
 	}
     
+	@GET
 	@Path("findByArrival")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@GET
 	public List<Flight> findByDateArrival(Date datetime) {
 		return flightService.findByArrival(datetime);
 	}	
 	
+	@GET
 	public String findAll() {
 	  flightList =  flightService.findAll();
-	  
 	  return  "flight";
 	}
 
